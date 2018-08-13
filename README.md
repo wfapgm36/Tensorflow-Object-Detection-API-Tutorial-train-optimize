@@ -136,14 +136,16 @@ model.ckpt-xxxxx의 xxxxx부분에 저장된 모델 번호를 쓰고 명령어�
 
 ![test_images](./docs/img/test_images.png)
 
-test_images 폴더 안의 이미지들을 test_{} 형식에 맞추어 불러옵니다. 
+테스트를 하기 위해 테스트할 이미지를 object_detection/test_images 폴더에 업로드합니다. 이미지들을 test_{} 형식에 맞춰 업로드하면 range의 범위에 따라 순서대로 이미지를 불러옵니다.
+
+업로드 후 object_detection_tutorial.ipynb를 실행하면 test_images 디렉토리의 이미지에 대해 num_recognition/frozen_inference_graph.pb을 사용하여 객체를 검출(추론)하고 그 결과를 출력합니다.
+
 
 ![convert_rgb](./docs/img/convert_rgb.png)
 
-test_images의 이미지들은 흑백인데 컬러 이미지의 3개 채널로 넣어야 하기 때문에 RGB로 변환합니다. 
+본 튜토리얼에서 사용한 카드가 있는 test_images의 이미지들은 Gray-scale인데 모델을 학습시키기 위해서는 RGB 이미지의 3개 채널로 넣어야 하기 때문에 RGB로 변환해 줍니다. 
 
-테스트를 하기 위해 테스트할 이미지를 object_detection/test_images 폴더에 업로드합니다.
-업로드 후 object_detection_tutorial.ipynb를 실행하면 test_images 디렉토리의 이미지에 대해 num_recognition/frozen_inference_graph.pb을 사용하여 객체를 검출(추론)하고 그 결과를 출력합니다.
+
 
 ## 결과<a name="Result"></a>
 ![result](./docs/img/result.png)
