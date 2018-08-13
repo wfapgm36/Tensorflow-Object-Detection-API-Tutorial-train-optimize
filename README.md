@@ -61,10 +61,14 @@
 
 Object Detection 모델을 학습하기 위해서는 이미지 데이터에 존재하는 객체에 **Labelling**을 하는 과정이 필요하다. 이와 관련한 많은 프로그램이 존재하지만 이 튜토리얼에선 github에 open source로 공개되어 있는 LabelImg를 사용하길 추천한다.
 
-본 튜토리얼에서 제공받았다고 가정한 객체 정보는 .csv 파일로 존재하지만, 위 프로그램을 사용하여 라벨링을 진행했을 경우 결과는 XML 형식으로 얻게된다. 이는 [datitran](https://github.com/datitran/raccoon_dataset)의 github에 있는 xml_to_csv.py 소스를 사용해 간단하게 csv 파일로 변경 가능하다.
+본 튜토리얼에서 제공받았다고 가정한 객체 정보는 .csv 파일로 존재하지만, 위 프로그램을 사용하여 라벨링을 진행했을 경우 결과는 XML 형식으로 얻게된다. 이는 [datitran](https://github.com/datitran/raccoon_dataset)의 github에 있는 xml_to_csv.py 소스를 사용해 간단하게 하나의 .csv 파일로 변경 가능하다.
+
+만약 본 튜토리얼처럼 라벨링 결과가 class, x, y, width, height의 순서대로 .csv 파일로 얻게된다면 아래 Step 3. csv 파일 통합 코드를 통해서 csv 파일을 Merge할 수 있다.
 
 ### Step 3. csv 파일 통합<a name="Mergecsv"></a>
 
+각 이미지 파일마다 csv 파일을 얻게 될 경우, TFRecord 파일을 생성하기 위해서 이를 하나의 통합된 csv 파일로 만들어줘야 한다. 또한 통합하는 과정에서 TFRecord 파일을 생성할 때 요구되는 포멧을 맞춰줘야 하는데, 이는 ( filename, width, height, class, xmin, ymin, xmax, ymax )이다. 여기서 width와 height는 image의 사이즈이고, Labelling을 통해 얻은 width와 height는 bounding box의 사이즈이므로 혼동하지 않아야 한다.  본 튜토리얼에서 제공하는 [소스코드](./docs/code/merge_csv.py)를 통해 간단히 .csv 파일들을 포멧에 맞게 통합할 수 있다. 통합된 모습은 다음과 같다.
+[!merged_csv](./docs/img/merged_csv.png)
 
 
 ### Step 4. TF Record 파일 생성<a name="Maketfrecord"></a>
@@ -76,6 +80,9 @@ Object Detection 모델을 학습시킬 때 마다 이미지와 .csv 파일을 �
 ![TFRecord_class](./docs/img/TFRecord_class.png)
 ![TFRecord_path](./docs/img/TFRecord_path.png)
 
+생성된 tfrecord 파일은 다음과 같다.
+
+[!tfrecord](./docs/img/tfrecord.png)
 
 TFRecord에 대한 더 자세한 설명은 [여기](http://bcho.tistory.com/1190)를 참고하길 바랍니다.
 
