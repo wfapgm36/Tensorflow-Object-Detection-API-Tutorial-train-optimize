@@ -108,6 +108,8 @@ TFRecord에 대한 더 자세한 설명은 [여기](http://bcho.tistory.com/1190
 
 앞의 과정을 통해서 학습에 필요한 데이터를 수집하고, 라벨링하고, TFRecord로 변환하는 과정까지 모두 완료했습니다. 데이터가 모두 준비가 되었으니 이제 모델을 학습시킬 차례입니다. 학습에 앞서 Tensorflow Object Detection API는 사용자가 간단히 학습 환경을 변경할 수 있도록 object_detection/samples/configs에 .config 파일을 여러 개 준비해두었습니다. 우리는 좀 더 빠르고 정확한 모델을 학습시키기 위하여 [**ssd_mobilenet_v2_coco.config**](https://github.com/tensorflow/models/blob/master/research/object_detection/samples/configs/ssd_mobilenet_v2_coco.config) 파일을 복사하여 training 폴더에 넣어주고 아래 명령어를 통해 학습을 진행하도록 하겠습니다.
 
+Tensorflow Object Detection API에서 제공하는 .config 파일을 카드 번호 검출에 최적화한 config 파일을 사용해 학습시켜보고 결과를 비교해보고 싶다면 [이것](./docs/code/ssd_mobilenet_v2_coco.config)을 사용해 보시길 바랍니다. 
+
 object_detection 디렉토리에서 아래와 같은 명령을 실행하여 학습합니다.
 > python3 train.py --logtostderr --train_dir=training/ --pipeline_config_path=training/ssd_mobilenet_v2_coco.config
 
