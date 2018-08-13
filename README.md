@@ -19,9 +19,9 @@
 # Table of contents
 1. [설치(Install)](#Install)
 2. [데이터셋(Dataset) 구성](#Dataset)
->* Step 1. 학습 이미지 데이터 수집
+>* Step 1. 학습 데이터 준비
 >* Step 2. 데이터 라벨링
->* Step 3. CSV 파일 생성
+>* Step 3. csv 파일 생성
 >* Step 4. TF Record 파일 생성
 >* Step 5. label.pbtxt 파일 생성
 3. [학습(Training)](#Train)
@@ -35,6 +35,18 @@
 
 ## 데이터셋 구성<a name="Dataset"></a>
 
+### Step 1. 학습 데이터 준비
+
+학습에 필요한 이미지 데이터를 준비한다.  관련 이미지는 Google 검색을 통해 다운로드하거나, 가지고 있는 이미지 파일을 사용하면 된다.
+검출하고자 하는 객체가 이미지 데이터에 존재해야 한다. 또한 [여기](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/using_your_own_dataset.md)에서 알 수 있듯이 학습 시 사용할 이미지 데이터는 RGB image로 jpeg나 png 포멧이어야 한다.
+
+### Step 2. 데이터 라벨링
+
+### Step 3. csv 파일 생성
+
+### Step 4. TF Record 파일 생성
+
+### Step 5. label.pbtxt 파일 생성
 
 
 ## 학습<a name="Train"></a>
