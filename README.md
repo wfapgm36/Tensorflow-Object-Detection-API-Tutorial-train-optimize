@@ -37,8 +37,11 @@
 
 ### Step 1. 학습 데이터 준비
 
-학습에 필요한 이미지 데이터를 준비한다.  관련 이미지는 Google 검색을 통해 다운로드하거나, 가지고 있는 이미지 파일을 사용하면 된다.
-검출하고자 하는 객체가 이미지 데이터에 존재해야 한다. 또한 [여기](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/using_your_own_dataset.md)에서 알 수 있듯이 학습 시 사용할 이미지 데이터는 RGB image로 jpeg나 png 포멧이어야 한다.
+학습에 필요한 이미지 데이터를 준비한다.  관련 이미지는 Google 검색을 통해 다운로드하거나, 가지고 있는 이미지 파일을 사용하면 된다. 이미지에는 검출하고자 하는 객체가 존재해야 한다. 또한 [여기](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/using_your_own_dataset.md)에서 알 수 있듯이 학습 시 사용할 이미지 데이터는 RGB image로 jpeg나 png 포멧이어야 한다.
+
+본 튜토리얼에서 사용한 데이터셋은 .png 파일과 .csv 파일이 한 쌍 씩 이루고 있는데, 여기서 .png 파일은 학습할 이미지 데이터이며, .csv 파일에는 이미지 안에 존재하는 객체에 대한 정보 ( class, x, y, width, height )가 저장되어 있다. 
+
+![file_list](./docs/img/file_list.png)
 
 ### Step 2. 데이터 라벨링
 
