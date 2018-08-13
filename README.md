@@ -126,6 +126,10 @@ object_detection 디렉토리에서 아래와 같은 명령을 실행하여 학�
  --trained_checkpoint_prefix training/model.ckpt-xxxxx \
  --output_directory num_recognition
  
+모델을 적용하기 위하여 다음을 수정해야합니다.
+본 모델은 카드 번호 검출 모델이므로 model_name을 number_recognition으로 수정합니다. 
+여기서 정의한 클래스는 10개(0 ~ 9)임ㅡ로 NUM_CLASSES의 값을 10으로 수정합니다. 
+ 
 model.ckpt-xxxxx의 xxxxx부분에 저장된 모델 번호를 쓰고 명령어를 실행하면 num_recognition 폴더가 생성되었고 안에 frozen_inference_graph.pb(추론 모델)이 생성된 것을 알 수 있습니다.
 
 테스트를 하기 위해 테스트할 이미지를 object_detection/test_images 폴더에 업로드합니다.
@@ -134,4 +138,6 @@ model.ckpt-xxxxx의 xxxxx부분에 저장된 모델 번호를 쓰고 명령어�
 ## 결과<a name="Result"></a>
 ![result](./docs/img/result.png)
 ![result](./docs/img/result2.png)
+
+결과 이미지를 통해 분류가 잘 이루어져 카드 번호 검출이 잘 이루어지는 것을 알 수 있다. 
 ## Extras<a name="Extras"></a>
