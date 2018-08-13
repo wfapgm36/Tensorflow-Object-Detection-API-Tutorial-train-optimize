@@ -41,7 +41,12 @@
 
 본 튜토리얼에서 사용한 데이터셋은 **.png 파일과 .csv 파일이 한 쌍 씩** 이루고 있는데, 여기서 **.png 파일은 학습할 이미지 데이터**이며, **.csv 파일에는 이미지 안에 존재하는 객체에 대한 정보**( class, x, y, width, height )가 저장되어 있다. 
 
+![csv_format](./docs/img/csv_format.png)
+
+**학습에 사용할 데이터셋의 csv 포멧**
 ![file_list](./docs/img/file_list.png)
+
+**학습에 사용할 데이터셋 리스트**
 
 ### Step 2. 데이터 라벨링
 
