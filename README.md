@@ -71,7 +71,7 @@ Object Detection 모델을 학습하기 위해서는 이미지 데이터에 존�
 
 Object Detection 모델을 학습시킬 때 마다 이미지와 .csv 파일을 한 쌍으로 데이터를 보관하고 이용하는 것은 비효율적이고 관리하기에도 좋지 않다. Tensorflow Object Detection API는 이를 해결하기 위해 이미지와 .csv 파일은 TFRecord라는 하나의 파일로 만드는 방법을 사용했습니다.
 
-이 과정은 제공되는 [소스코드](./docs/code/generate_tfrecord.py)를 사용하면 됩니다. 단, 사용자의 데이터에 맞게 아래 부분에 대수정이 필요합니다. 
+이 과정은 제공되는 [소스코드](./docs/code/generate_tfrecord.py)를 사용하면 됩니다. 단, 사용자의 데이터에 맞게 아래 부분에 대해 수정이 필요합니다. 
 
 ![TFRecord_class](./docs/img/TFRecord_class.png)
 ![TFRecord_path](./docs/img/TFRecord_path.png)
@@ -80,6 +80,8 @@ Object Detection 모델을 학습시킬 때 마다 이미지와 .csv 파일을 �
 TFRecord에 대한 더 자세한 설명은 [여기](http://bcho.tistory.com/1190)를 참고하길 바랍니다.
 
 ### Step 5. label.pbtxt 파일 생성
+
+본 튜토리얼에서는 카드 숫자 검출을 위해 0 ~ 9의 10가지 숫자를 검출해야할 class로 지정했습니다. TFRecord 파일은 .pb 포멧으로 학습 시 데이터를 읽어 오는데, 여기서 label 정보 또한 .pbtxt형식으로 읽게 됩니다. 따라서 training 폴더를 생성해 [이것](./docs/code/object-detection.pbtxt)과 같이 object-detection.pbtxt를 만들어야 합나다.
 
 
 ## 학습<a name="Train"></a>
