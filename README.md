@@ -138,7 +138,7 @@ model.ckpt-xxxxx의 xxxxx부분에 저장된 모델 번호를 쓰고 명령어�
 
 test_images 폴더 안의 이미지들을 test_{} 형식에 맞추어 불러옵니다. 
 
-![contert_rgb](./docs/img/contert_rgb.png)
+![convert_rgb](./docs/img/convert_rgb.png)
 
 test_images의 이미지들은 흑백인데 컬러 이미지의 3개 채널로 넣어야 하기 때문에 RGB로 변환합니다. 
 
