@@ -7,17 +7,33 @@
 
 이 튜토리얼은 Tensorflow Object Detection API를 사용해 사용자가 원하는 특정 객체를 검출하는 빠르고 가벼운 모델을 만들 수 있도록 도와줍니다. 그럼에도 높은 정확도를 유지할 수 있는 방법도 알려줍니다.
 
+
+**개발 환경**
+* Ubuntu 16.04
+* Python 3.6.6
+* Tensorflow 1.9.0
+* cuda 9.0
+
 # Table of contents
-1. [개발환경 및 설치(Install)](#Install)
+1. [설치(Install)](#Install)
 2. [데이터셋(Dataset) 구성](#Dataset)
+  >1) 학습 이미지 데이터 수집
+  >2) 데이터 라벨링
+  >3) CSV 파일 생성
+  >4) TF Record 파일 생성
+  >5) label.pbtxt 파일 생성
 3. [학습(Training)](#Train)
 4. [모델 구동(Running)](#Running)
 5. [결과(Result)](#Result)
 6. [Extras](#Extras)
 
-## 개발환경 및 설치<a name="Install"></a>
+## 설치<a name="Install"></a>
+
+[Tensorflow Object Dectection API](https://github.com/tensorflow/models/tree/master/research/object_detection)을 적당한 폴더에 git clone하고 [여기](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/installation.md)를 참고하여 설치를 완료합니다. ( COCO API installation은 하지 않아도 튜토리얼을 진행하는데 문제는 없습니다. )
 
 ## 데이터셋 구성<a name="Dataset"></a>
+
+
 
 ## 학습<a name="Train"></a>
 
