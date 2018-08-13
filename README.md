@@ -101,18 +101,19 @@ TFRecord에 대한 더 자세한 설명은 [여기](http://bcho.tistory.com/1190
 
 ## 학습<a name="Train"></a>
 object_detection 디렉토리에서 아래와 같은 명령을 실행하여 학습합니다.
+> python3 train.py --logtostderr --train_dir=training/ --pipeline_config_path=training/ssd_mobilenet_v2_coco.config
 
-학습이 시작되면 아래와 같은 화면이 보입니다.
+학습이 정상적으로 시작되면 아래와 같이 동작합니다.
 
 ![train](./docs/img/loss.png)
 
-각 step은 loss를 보고하고 잘 학습되는 경우 loss는 0에 수렴합니다. 
+각 step마다 loss 값이 출력되고 잘 학습되는 경우 loss는 0에 수렴합니다. 
 
 ## 모델 구동<a name="Running"></a>
-테스트를 하기 위해 테스트할 이미지를 object_detection 디렉토리의 test_images 폴더에 업로드.
-그 다음, 다음의 명령어를 실행합니다.
+테스트를 하기 위해 테스트할 이미지를 object_detection 디렉토리의 test_images 폴더에 업로드합니다.
 
-test_images 디렉토리의 모든 이미지에 대해 frozen_inference_graph.pb에 있는 객체 검출 모델을 실행하고 그 결과를 test_images 디렉토리에 출력합니다. 
+object_detection_tutorial.ipynb를 실행하면 test_images 디렉토리의 모든 이미지에 대해 num_recognition/frozen_inference_graph.pb을 사용하여 객체를 검출(추론)하고 그 결과를 출력합니다.
+
 ## 결과<a name="Result"></a>
 ![result](./docs/img/result.png)
 ![result](./docs/img/result2.png)
