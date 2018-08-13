@@ -1,0 +1,59 @@
+item {
+  id: 1
+  name: 'zero'
+  display_name: "0"
+}
+
+item {
+  id: 2
+  name: 'one'
+  display_name: "1"
+}
+
+item {
+  id: 3
+  name: 'two'
+  display_name: "2"
+}
+
+item {
+  id: 4
+  name: 'three'
+  display_name: "3"
+}
+
+item {
+  id: 5
+  name: 'four'
+  display_name: "4"
+}
+
+item {
+  id: 6
+  name: 'five'
+  display_name: "5"
+}
+
+item {
+  id: 7
+  name: 'six'
+  display_name: "6"
+}
+
+item {
+  id: 8
+  name: 'seven'
+  display_name: "7"
+}
+
+item {
+  id: 9
+  name: 'eight'
+  display_name: "8"
+}
+
+item {
+  id: 10
+  name: 'nine'
+  display_name: "9"
+}
