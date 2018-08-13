@@ -7,6 +7,8 @@
 
 이 튜토리얼은 Tensorflow Object Detection API를 사용해 사용자가 원하는 특정 객체를 검출하는 빠르고 가벼운 모델을 만들 수 있도록 도와줍니다. 그럼에도 높은 정확도를 유지할 수 있는 방법도 알려줍니다.
 
+본 튜토리얼은 신용 카드 숫자 검출 모델 생성을 예시로 설명을 진행합니다.
+
 
 **개발 환경**
 * Ubuntu 16.04
@@ -17,11 +19,11 @@
 # Table of contents
 1. [설치(Install)](#Install)
 2. [데이터셋(Dataset) 구성](#Dataset)
-  >1) 학습 이미지 데이터 수집
-  >2) 데이터 라벨링
-  >3) CSV 파일 생성
-  >4) TF Record 파일 생성
-  >5) label.pbtxt 파일 생성
+>Step 1. 학습 이미지 데이터 수집
+>Step 2. 데이터 라벨링
+>Step 3. CSV 파일 생성
+>Step 4. TF Record 파일 생성
+>Step 5. label.pbtxt 파일 생성
 3. [학습(Training)](#Train)
 4. [모델 구동(Running)](#Running)
 5. [결과(Result)](#Result)
