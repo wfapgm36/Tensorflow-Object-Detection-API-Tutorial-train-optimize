@@ -103,6 +103,7 @@ TFRecord에 대한 더 자세한 설명은 [여기](http://bcho.tistory.com/1190
 object_detection 디렉토리에서 아래와 같은 명령을 실행하여 학습합니다.
 
 학습이 시작되면 아래와 같은 화면이 보입니다.
+
 ![train](./docs/img/loss.png)
 각 step은 loss를 보고하고 잘 학습되는 경우 loss는 0에 수렴합니다. 
 
