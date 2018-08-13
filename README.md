@@ -130,7 +130,7 @@ model.ckpt-xxxxx의 xxxxx부분에 저장된 모델 번호를 쓰고 명령어�
 
 모델을 적용하기 위하여 다음을 수정합니다. 
 
-![model_name](./docs/img/model_namge.png)
+![model_name](./docs/img/model_name.png)
 
 본 모델은 카드 번호 검출 모델이므로 model_name을 num_recognition으로 변경하고 PAATH_TO_CKPT도 바뀐 모델 경로로 변경합니다. PATH_TO_LABELS는 레이블에 사용되는 문자용 목록으로, 이전에 정의한 object_detection.pbtxt로 변경합니다. 마지막으로 여기서 정의한 클래스는 10개(0 ~ 9)이므로 NUM_CLASSES의 값을 수정합니다.  
 
@@ -138,7 +138,7 @@ model.ckpt-xxxxx의 xxxxx부분에 저장된 모델 번호를 쓰고 명령어�
 
 test_images 폴더 안의 이미지들을 test_{} 형식에 맞추어 불러옵니다. 
 
-![contert_rgb](./docs/img/conter_rgb.png)
+![contert_rgb](./docs/img/contert_rgb.png)
 
 test_images의 이미지들은 흑백인데 컬러 이미지의 3개 채널로 넣어야 하기 때문에 RGB로 변환합니다. 
 
