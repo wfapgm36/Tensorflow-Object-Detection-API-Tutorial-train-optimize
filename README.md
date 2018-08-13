@@ -25,7 +25,7 @@
 >* Step 4. [TF Record 파일 생성](#Maketfrecord)
 >* Step 5. [object-detection.pbtxt 파일 생성](#Makepbtxt)
 3. [학습(Training)](#Train)
-4. [모델 구동(Running)](#Running)
+4. [모델 (Running)](#Running)
 5. [결과(Result)](#Result)
 6. [Extras](#Extras)
 
@@ -106,7 +106,7 @@ TFRecord에 대한 더 자세한 설명은 [여기](http://bcho.tistory.com/1190
 
 ## 학습<a name="Train"></a>
 
-앞의 과정을 통해서 학습에 필요한 데이터를 수집하고, 라벨링하고, TFRecord로 변환하는 과정까지 모두 완료했습니다. 데이터가 모두 준비가 되었으니 이제 모델을 학습시킬 차례입니다. 학습에 앞서 Tensorflow Object Detection API는 사용자가 간단히 학습 환경을 변경할 수 있도록 object_detection/samples/configs에 .config 파일을 여러 개 준비해두었습니다. 우리는 좀 더 빠르고 정확한 모델을 학습시키기 위하여 **ssd_mobilenet_v2_coco.config** 파일을 복사하여 training 폴더에 넣어주고 아래 명령어를 통해 학습을 진행하도록 하겠습니다.
+앞의 과정을 통해서 학습에 필요한 데이터를 수집하고, 라벨링하고, TFRecord로 변환하는 과정까지 모두 완료했습니다. 데이터가 모두 준비가 되었으니 이제 모델을 학습시킬 차례입니다. 학습에 앞서 Tensorflow Object Detection API는 사용자가 간단히 학습 환경을 변경할 수 있도록 object_detection/samples/configs에 .config 파일을 여러 개 준비해두었습니다. 우리는 좀 더 빠르고 정확한 모델을 학습시키기 위하여 [**ssd_mobilenet_v2_coco.config**](https://github.com/tensorflow/models/blob/master/research/object_detection/samples/configs/ssd_mobilenet_v2_coco.config) 파일을 복사하여 training 폴더에 넣어주고 아래 명령어를 통해 학습을 진행하도록 하겠습니다.
 
 object_detection 디렉토리에서 아래와 같은 명령을 실행하여 학습합니다.
 > python3 train.py --logtostderr --train_dir=training/ --pipeline_config_path=training/ssd_mobilenet_v2_coco.config
@@ -115,12 +115,21 @@ object_detection 디렉토리에서 아래와 같은 명령을 실행하여 학�
 
 ![train](./docs/img/loss.png)
 
-각 step마다 loss 값이 출력되고 잘 학습되는 경우 loss는 0에 수렴합니다. 
+각 step마다 loss 값이 출력되고 잘 학습되는 경우 loss는 0에 수렴합니다. 적당히 loss가 0 ~ 2 정도로 수렴한다 싶으면 학습을 종료하고 모델을 테스트해봅니다.
 
-## 모델 구동<a name="Running"></a>
-테스트를 하기 위해 테스트할 이미지를 object_detection 디렉토리의 test_images 폴더에 업로드합니다.
+## 모델 <a name="Running"></a>
 
-object_detection_tutorial.ipynb를 실행하면 test_images 디렉토리의 모든 이미지에 대해 num_recognition/frozen_inference_graph.pb을 사용하여 객체를 검출(추론)하고 그 결과를 출력합니다.
+모델을 테스트하기 위해 학습을 종료하면 training 폴더에 많은 파일들이 생긴 것을 확인할 수 있습니다. 이를 객체 검출에 사용할 수 있는 즉 추론 모델을 추출하기 위해서 다음과 같은 명령어를 object_detection 폴더에서 실행합니다.
+> python3 export_inference_graph.py \
+ --input_type image_tensor \
+ --pipeline_config_path training/ssd_mobilenet_v2_coco.config \
+ --trained_checkpoint_prefix training/model.ckpt-xxxxx \
+ --output_directory num_recognition
+ 
+명령어가 완료되면 num_recognition 폴더가 생성되었고 안에 frozen_inference_graph.pb(추론 모델)이 생성된 것을 알 수 있습니다.
+
+테스트를 하기 위해 테스트할 이미지를 object_detection/test_images 폴더에 업로드합니다.
+업로드 후 object_detection_tutorial.ipynb를 실행하면 test_images 디렉토리의 이미지에 대해 num_recognition/frozen_inference_graph.pb을 사용하여 객체를 검출(추론)하고 그 결과를 출력합니다.
 
 ## 결과<a name="Result"></a>
 ![result](./docs/img/result.png)
