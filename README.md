@@ -19,11 +19,11 @@
 # Table of contents
 1. [설치(Install)](#Install)
 2. [데이터셋(Dataset) 구성](#Dataset)
->Step 1. 학습 이미지 데이터 수집
->Step 2. 데이터 라벨링
->Step 3. CSV 파일 생성
->Step 4. TF Record 파일 생성
->Step 5. label.pbtxt 파일 생성
+>* Step 1. 학습 이미지 데이터 수집
+>* Step 2. 데이터 라벨링
+>* Step 3. CSV 파일 생성
+>* Step 4. TF Record 파일 생성
+>* Step 5. label.pbtxt 파일 생성
 3. [학습(Training)](#Train)
 4. [모델 구동(Running)](#Running)
 5. [결과(Result)](#Result)
