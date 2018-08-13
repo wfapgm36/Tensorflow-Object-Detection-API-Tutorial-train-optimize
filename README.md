@@ -19,11 +19,11 @@
 # Table of contents
 1. [설치(Install)](#Install)
 2. [데이터셋(Dataset) 구성](#Dataset)
->* Step 1. 학습 데이터 준비
->* Step 2. 데이터 라벨링
->* Step 3. csv 파일 생성
->* Step 4. TF Record 파일 생성
->* Step 5. label.pbtxt 파일 생성
+>* Step 1. [학습 데이터 준비](#Preparedata)
+>* Step 2. [데이터 라벨링](#Datalabelling)
+>* Step 3. csv 파일 통합(#Mergecsv)
+>* Step 4. TF Record 파일 생성(#Maketfrecord)
+>* Step 5. label.pbtxt 파일 생성(#Makepbtxt)
 3. [학습(Training)](#Train)
 4. [모델 구동(Running)](#Running)
 5. [결과(Result)](#Result)
@@ -35,7 +35,7 @@
 
 ## 데이터셋 구성<a name="Dataset"></a>
 
-### Step 1. 학습 데이터 준비
+### Step 1. 학습 데이터 준비<a name="Preparedata"></a>
 
 학습에 필요한 이미지 데이터를 준비한다.  관련 이미지는 Google 검색을 통해 다운로드하거나, 가지고 있는 이미지 파일을 사용하면 된다. 이미지에는 검출하고자 하는 객체가 존재해야 한다. 또한 [여기](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/using_your_own_dataset.md)에서 알 수 있듯이 학습 시 사용할 이미지 데이터는 **RGB image로 jpeg나 png 포멧**이어야 한다.
 
@@ -57,17 +57,17 @@
 
 
 
-### Step 2. 데이터 라벨링
+### Step 2. 데이터 라벨링<a name="Datalabelling"></a>
 
 Object Detection 모델을 학습하기 위해서는 이미지 데이터에 존재하는 객체에 **Labelling**을 하는 과정이 필요하다. 이와 관련한 많은 프로그램이 존재하지만 이 튜토리얼에선 github에 open source로 공개되어 있는 LabelImg를 사용하길 추천한다.
 
 본 튜토리얼에서 제공받았다고 가정한 객체 정보는 .csv 파일로 존재하지만, 위 프로그램을 사용하여 라벨링을 진행했을 경우 결과는 XML 형식으로 얻게된다. 이는 [datitran](https://github.com/datitran/raccoon_dataset)의 github에 있는 xml_to_csv.py 소스를 사용해 간단하게 csv 파일로 변경 가능하다.
 
-### Step 3. csv 파일 통합(Merge)
+### Step 3. csv 파일 통합(Merge)<a name="Mergecsv"></a>
 
 
 
-### Step 4. TF Record 파일 생성
+### Step 4. TF Record 파일 생성<a name="Maketfrecord"></a>
 
 Object Detection 모델을 학습시킬 때 마다 이미지와 .csv 파일을 한 쌍으로 데이터를 보관하고 이용하는 것은 비효율적이고 관리하기에도 좋지 않다. Tensorflow Object Detection API는 이를 해결하기 위해 이미지와 .csv 파일은 TFRecord라는 하나의 파일로 만드는 방법을 사용했습니다.
 
@@ -79,7 +79,7 @@ Object Detection 모델을 학습시킬 때 마다 이미지와 .csv 파일을 �
 
 TFRecord에 대한 더 자세한 설명은 [여기](http://bcho.tistory.com/1190)를 참고하길 바랍니다.
 
-### Step 5. label.pbtxt 파일 생성
+### Step 5. label.pbtxt 파일 생성<a name="Makepbtxt"></a>
 
 본 튜토리얼에서는 카드 숫자 검출을 위해 0 ~ 9의 10가지 숫자를 검출해야할 class로 지정했습니다. TFRecord 파일은 .pb 포멧으로 학습 시 데이터를 읽어 오는데, 여기서 label 정보 또한 .pbtxt형식으로 읽게 됩니다. 따라서 training 폴더를 생성해 [이것](./docs/code/object-detection.pbtxt)과 같이 object-detection.pbtxt를 만들어야 합나다.
 
