@@ -33,8 +33,6 @@
 
 [Tensorflow Object Dectection API](https://github.com/tensorflow/models/tree/master/research/object_detection)을 적당한 폴더에 git clone하고 [여기](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/installation.md)를 참고하여 설치를 완료합니다. ( COCO API installation은 하지 않아도 튜토리얼을 진행하는데 문제는 없습니다. )
 
-**대부분의 작업과 명령어는 ~/models/research/object_detection 에서 진행됩니다. 본 튜토리얼은 해당 디렉토리 구조에서 필요한 폴더와 파일을 추가합니다.**
-
 ## 데이터셋 구성<a name="Dataset"></a>
 
 ### Step 1. 학습 데이터 준비<a name="Preparedata"></a>
@@ -95,9 +93,11 @@ TFRecord에 대한 더 자세한 설명은 [여기](http://bcho.tistory.com/1190
 
 
 ## 학습<a name="Train"></a>
+object_detection 디렉토리에서 아래와 같은 명령을 실행하여 학습한다.
+
 
 ## 모델 구동<a name="Running"></a>
-
+테스트를 하기 위해 테스트할 이미지를 object_detection 디렉토리의 test_images 폴더에 업로드한다. 
 ## 결과<a name="Result"></a>
 
 ## Extras<a name="Extras"></a>
