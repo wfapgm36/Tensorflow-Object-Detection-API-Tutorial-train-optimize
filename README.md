@@ -21,9 +21,9 @@
 2. [데이터셋(Dataset) 구성](#Dataset)
 >* Step 1. [학습 데이터 준비](#Preparedata)
 >* Step 2. [데이터 라벨링](#Datalabelling)
->* Step 3. csv 파일 통합(#Mergecsv)
->* Step 4. TF Record 파일 생성(#Maketfrecord)
->* Step 5. label.pbtxt 파일 생성(#Makepbtxt)
+>* Step 3. [csv 파일 통합](#Mergecsv)
+>* Step 4. [TF Record 파일 생성](#Maketfrecord)
+>* Step 5. [object-detection.pbtxt 파일 생성](#Makepbtxt)
 3. [학습(Training)](#Train)
 4. [모델 구동(Running)](#Running)
 5. [결과(Result)](#Result)
@@ -63,7 +63,7 @@ Object Detection 모델을 학습하기 위해서는 이미지 데이터에 존�
 
 본 튜토리얼에서 제공받았다고 가정한 객체 정보는 .csv 파일로 존재하지만, 위 프로그램을 사용하여 라벨링을 진행했을 경우 결과는 XML 형식으로 얻게된다. 이는 [datitran](https://github.com/datitran/raccoon_dataset)의 github에 있는 xml_to_csv.py 소스를 사용해 간단하게 csv 파일로 변경 가능하다.
 
-### Step 3. csv 파일 통합(Merge)<a name="Mergecsv"></a>
+### Step 3. csv 파일 통합<a name="Mergecsv"></a>
 
 
 
@@ -79,7 +79,7 @@ Object Detection 모델을 학습시킬 때 마다 이미지와 .csv 파일을 �
 
 TFRecord에 대한 더 자세한 설명은 [여기](http://bcho.tistory.com/1190)를 참고하길 바랍니다.
 
-### Step 5. label.pbtxt 파일 생성<a name="Makepbtxt"></a>
+### Step 5. object-detection.pbtxt 파일 생성<a name="Makepbtxt"></a>
 
 본 튜토리얼에서는 카드 숫자 검출을 위해 0 ~ 9의 10가지 숫자를 검출해야할 class로 지정했습니다. TFRecord 파일은 .pb 포멧으로 학습 시 데이터를 읽어 오는데, 여기서 label 정보 또한 .pbtxt형식으로 읽게 됩니다. 따라서 training 폴더를 생성해 [이것](./docs/code/object-detection.pbtxt)과 같이 object-detection.pbtxt를 만들어야 합나다.
 
