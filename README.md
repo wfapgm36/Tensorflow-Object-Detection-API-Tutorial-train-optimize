@@ -101,7 +101,7 @@ TFRecord에 대한 더 자세한 설명은 [여기](http://bcho.tistory.com/1190
 
 ### Step 5. object-detection.pbtxt 파일 생성<a name="Makepbtxt"></a>
 
-본 튜토리얼에서는 카드 숫자 검출을 위해 0 ~ 9의 10가지 숫자를 검출해야할 class로 지정했습니다. TFRecord 파일은 .pb 포멧으로 학습 시 데이터를 읽어 오는데, 여기서 label 정보 또한 .pbtxt형식으로 읽게 됩니다. 따라서 앞서 생성한 training 폴더에 [이것](./docs/code/object-detection.pbtxt)과 같은 object-detection.pbtxt를 만들어줘야 합나다.
+본 튜토리얼에서는 카드 숫자 검출을 위해 0 ~ 9의 10가지 숫자를 검출해야할 class로 지정했습니다. TFRecord 파일은 .pb 포멧으로 학습 시 데이터를 읽어 오는데, 여기서 label 정보 또한 .pbtxt형식으로 읽게 됩니다. 따라서 앞서 생성한 training 폴더에 [이것](./docs/code/object-detection.pbtxt)과 같은 object-detection.pbtxt를 만들어줘야 합니다.
 
 
 ## 학습<a name="Train"></a>
@@ -125,12 +125,22 @@ object_detection 디렉토리에서 아래와 같은 명령을 실행하여 학�
  --pipeline_config_path training/ssd_mobilenet_v2_coco.config \
  --trained_checkpoint_prefix training/model.ckpt-xxxxx \
  --output_directory num_recognition
- 
-모델을 적용하기 위하여 다음을 수정해야합니다.
-본 모델은 카드 번호 검출 모델이므로 model_name을 number_recognition으로 수정합니다. 
-여기서 정의한 클래스는 10개(0 ~ 9)임ㅡ로 NUM_CLASSES의 값을 10으로 수정합니다. 
- 
+  
 model.ckpt-xxxxx의 xxxxx부분에 저장된 모델 번호를 쓰고 명령어를 실행하면 num_recognition 폴더가 생성되었고 안에 frozen_inference_graph.pb(추론 모델)이 생성된 것을 알 수 있습니다.
+
+모델을 적용하기 위하여 다음을 수정합니다. 
+
+![model_name](./docs/img/model_namge.png)
+
+본 모델은 카드 번호 검출 모델이므로 model_name을 num_recognition으로 변경하고 PAATH_TO_CKPT도 바뀐 모델 경로로 변경합니다. PATH_TO_LABELS는 레이블에 사용되는 문자용 목록으로, 이전에 정의한 object_detection.pbtxt로 변경합니다. 마지막으로 여기서 정의한 클래스는 10개(0 ~ 9)이므로 NUM_CLASSES의 값을 수정합니다.  
+
+![test_images](./docs/img/test_images.png)
+
+test_images 폴더 안의 이미지들을 test_{} 형식에 맞추어 불러옵니다. 
+
+![contert_rgb](./docs/img/conter_rgb.png)
+
+test_images의 이미지들은 흑백인데 컬러 이미지의 3개 채널로 넣어야 하기 때문에 RGB로 변환합니다. 
 
 테스트를 하기 위해 테스트할 이미지를 object_detection/test_images 폴더에 업로드합니다.
 업로드 후 object_detection_tutorial.ipynb를 실행하면 test_images 디렉토리의 이미지에 대해 num_recognition/frozen_inference_graph.pb을 사용하여 객체를 검출(추론)하고 그 결과를 출력합니다.
