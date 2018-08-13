@@ -43,15 +43,15 @@
 
 ![file_list](./docs/img/file_list.png)
 
-**학습에 사용할 데이터셋 리스트**
+* 학습에 사용할 데이터셋 리스트
 
 ![card_img](./docs/img/card_img.png)
 
-**학습에 사용할 카드 이미지**
+* 학습에 사용할 카드 이미지
 
 ![csv_format](./docs/img/csv_format.png)
 
-**학습에 사용할 데이터셋의 csv 포멧**( 왼쪽부터 객체의 class(숫자), x, y, width, height )
+* 학습에 사용할 데이터셋의 csv 포멧( 왼쪽부터 객체의 **class(숫자), x, y, width, height** )
 
 
 
