@@ -43,7 +43,7 @@
 
 ![csv_format](./docs/img/csv_format.png)
 
-**학습에 사용할 데이터셋의 csv 포멧**
+**학습에 사용할 데이터셋의 csv 포멧**( 왼쪽부터 객체의 class, x, y, width, height )
 ![file_list](./docs/img/file_list.png)
 
 **학습에 사용할 데이터셋 리스트**
