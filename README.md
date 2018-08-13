@@ -126,7 +126,7 @@ object_detection 디렉토리에서 아래와 같은 명령을 실행하여 학�
  --trained_checkpoint_prefix training/model.ckpt-xxxxx \
  --output_directory num_recognition
  
-명령어가 완료되면 num_recognition 폴더가 생성되었고 안에 frozen_inference_graph.pb(추론 모델)이 생성된 것을 알 수 있습니다.
+model.ckpt-xxxxx의 xxxxx부분에 저장된 모델 번호를 쓰고 명령어를 실행하면 num_recognition 폴더가 생성되었고 안에 frozen_inference_graph.pb(추론 모델)이 생성된 것을 알 수 있습니다.
 
 테스트를 하기 위해 테스트할 이미지를 object_detection/test_images 폴더에 업로드합니다.
 업로드 후 object_detection_tutorial.ipynb를 실행하면 test_images 디렉토리의 이미지에 대해 num_recognition/frozen_inference_graph.pb을 사용하여 객체를 검출(추론)하고 그 결과를 출력합니다.
