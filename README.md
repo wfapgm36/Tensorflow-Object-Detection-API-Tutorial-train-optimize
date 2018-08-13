@@ -33,6 +33,8 @@
 
 [Tensorflow Object Dectection API](https://github.com/tensorflow/models/tree/master/research/object_detection)을 적당한 폴더에 git clone하고 [여기](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/installation.md)를 참고하여 설치를 완료합니다. ( COCO API installation은 하지 않아도 튜토리얼을 진행하는데 문제는 없습니다. )
 
+**대부분의 작업과 명령어는 ~/models/research/object_detection 에서 진행됩니다. 본 튜토리얼은 해당 디렉토리 구조에서 필요한 폴더와 파일을 추가합니다.**
+
 ## 데이터셋 구성<a name="Dataset"></a>
 
 ### Step 1. 학습 데이터 준비<a name="Preparedata"></a>
