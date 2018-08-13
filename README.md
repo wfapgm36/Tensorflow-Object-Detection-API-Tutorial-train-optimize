@@ -67,7 +67,8 @@ Object Detection 모델을 학습하기 위해서는 이미지 데이터에 존�
 
 ### Step 3. csv 파일 통합<a name="Mergecsv"></a>
 
-각 이미지 파일마다 csv 파일을 얻게 될 경우, TFRecord 파일을 생성하기 위해서 이를 하나의 통합된 csv 파일로 만들어줘야 한다. 또한 통합하는 과정에서 TFRecord 파일을 생성할 때 요구되는 포멧을 맞춰줘야 하는데, 이는 ( filename, width, height, class, xmin, ymin, xmax, ymax )이다. 여기서 width와 height는 image의 사이즈이고, Labelling을 통해 얻은 width와 height는 bounding box의 사이즈이므로 혼동하지 않아야 한다.  본 튜토리얼에서 제공하는 [소스코드](./docs/code/merge_csv.py)를 통해 간단히 .csv 파일들을 포멧에 맞게 통합할 수 있다. 통합된 모습은 다음과 같다.
+각 이미지 파일마다 csv 파일을 얻게 될 경우, TFRecord 파일을 생성하기 위해서 이를 하나의 통합된 csv 파일로 만들어줘야 한다. 또한 통합하는 과정에서 TFRecord 파일을 생성할 때 요구되는 포멧을 맞춰줘야 하는데, 이는 ( filename, width, height, class, xmin, ymin, xmax, ymax )이다. 여기서 width와 height는 image의 사이즈이고, Labelling을 통해 얻은 width와 height는 bounding box의 사이즈이므로 혼동하지 않아야 한다.  본 튜토리얼에서 제공하는 [소스코드](./docs/code/merge_csv.ipynb)를 통해 간단히 .csv 파일들을 포멧에 맞게 통합할 수 있다. 통합된 모습은 다음과 같다.
+
 ![merged_csv](./docs/img/merged_csv.png)
 
 
