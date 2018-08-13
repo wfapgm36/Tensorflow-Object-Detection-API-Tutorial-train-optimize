@@ -59,7 +59,11 @@
 
 ### Step 2. 데이터 라벨링
 
-### Step 3. csv 파일 생성
+Object Detection 모델을 학습하기 위해서는 이미지 데이터에 존재하는 객체에 **Labelling**을 하는 과정이 필요하다. 이와 관련한 많은 프로그램이 존재하지만 이 튜토리얼에선 github에 open source로 공개되어 있는 LabelImg를 사용하길 추천한다.
+
+본 튜토리얼에서 제공받았다고 가정한 객체 정보는 .csv 파일로 존재하지만, 위 프로그램을 사용하여 라벨링을 진행했을 경우 결과는 XML 형식으로 얻게된다. 이는 [datitran](https://github.com/datitran/raccoon_dataset)의 github에 있는 xml_to_csv.py 소스를 사용해 간단하게 csv 파일로 변경 가능하다.
+
+### Step 3. csv 파일 통합(Merge)
 
 ### Step 4. TF Record 파일 생성
 
