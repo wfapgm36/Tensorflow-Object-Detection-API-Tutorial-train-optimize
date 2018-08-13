@@ -65,7 +65,16 @@ Object Detection 모델을 학습하기 위해서는 이미지 데이터에 존�
 
 ### Step 3. csv 파일 통합(Merge)
 
+
+
 ### Step 4. TF Record 파일 생성
+
+Object Detection 모델을 학습시킬 때 마다 이미지와 .csv 파일을 한 쌍으로 데이터를 보관하고 이용하는 것은 비효율적이고 관리하기에도 좋지 않다. Tensorflow Object Detection API는 이를 해결하기 위해 이미지와 .csv 파일은 TFRecord라는 하나의 파일로 만드는 방법을 사용했습니다.
+
+이 과정은 제공되는 소스코드를 사용하면 되지만 사용자의 데이터에 맞게 약간의 수정이 필요합니다. 
+
+
+TFRecord에 대한 더 자세한 설명은 [여기](http://bcho.tistory.com/1190)를 참고하길 바랍니다.
 
 ### Step 5. label.pbtxt 파일 생성
 
