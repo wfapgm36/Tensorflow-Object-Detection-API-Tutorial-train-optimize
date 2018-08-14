@@ -81,7 +81,7 @@ xml_to_csv.py 소스를 사용해서 .xml 파일을 .csv파일로 만들었다�
 통합하는 과정에서 TFRecord 파일을 생성할 때 요구되는 포맷을 맞춰줘야 하는데, 이는 다음과 같습니다.
 >( filename, width, height, class, xmin, ymin, xmax, ymax ) 
 
-**여기서 width와 height는 image의 사이즈이고, Labelling을 통해 얻은 width와 height는 bounding box의 사이즈이므로 혼동하지 않아야 합니다.** 본 튜토리얼에서 제공하는 [소스코드](./docs/code/merge_csv.ipynb)를 통해 간단히 .csv 파일들을 포맷에 맞게 통합할 수 있습니다. 통합된 모습은 다음과 같습니다.
+**여기서 width와 height는 __image의 사이즈__ 이고, Labelling을 통해 얻은 width와 height는 __bounding box__ 의 사이즈이므로 혼동하지 않아야 합니다.** 본 튜토리얼에서 제공하는 [소스코드](./docs/code/merge_csv.ipynb)를 통해 간단히 .csv 파일들을 포맷에 맞게 통합할 수 있습니다. 통합된 모습은 다음과 같습니다.
 
 ![merged_csv](./docs/img/merged_csv.png)
 
