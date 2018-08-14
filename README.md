@@ -36,7 +36,7 @@
 **본 튜토리얼의 대부분의 작업 및 명령어는 models/research/object_detection에서 실행됩니다.** 또한 아래와 같은 디렉토리 구조를 만들어 아래와 같은 순서대로 진행합니다.
 * 데이터셋 구성
 * 모델 학습
-* 모델 구동
+* 모델 테스트
 
 ![directory](./docs/img/directory.png)
 
@@ -44,11 +44,11 @@
 
 ### Step 1. 학습 데이터 준비<a name="Preparedata"></a>
 
-학습에 필요한 이미지 데이터를 준비하는 과정입니다. object_detection/training 폴더를 만들어 폴더에 학습에 필요한 이미지를 Google 검색을 통해 다운로드하거나, 가지고 있는 이미지 파일을 저장해 줍니다. 단, 이미지에는 검출하고자 하는 객체가 존재해야 합니다. 또한 [여기](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/using_your_own_dataset.md)에서 알 수 있듯이 학습 시 사용할 이미지 데이터는 **RGB image로 jpeg나 png 포맷**이어야 합니다.
+학습에 필요한 이미지 데이터를 준비합니다. object_detection/training 폴더를 만들어 학습하고자 하는 이미지를 Google 검색을 통해 다운로드하거나, 가지고 있는 이미지 파일을 위 경로로 저장해 줍니다. 또한 [여기](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/using_your_own_dataset.md)에서 알 수 있듯이 학습 시 사용할 이미지 데이터는 **RGB image로 jpeg나 png 포맷**이어야 합니다.
 
-본 튜토리얼에서 사용한 데이터셋은 **.png 파일과 .csv 파일이 한 쌍 씩** 이루고 있는데, 여기서 **.png 파일은 학습할 이미지 데이터**이며, **.csv 파일에는 이미지 안에 존재하는 객체에 대한 정보**( class, x, y, width, height )가 저장되어 있습니다. 
+본 튜토리얼에서 사용할 데이터셋은 **.png 파일과 .csv 파일이 한 쌍 씩** 이루고 있는데, 여기서 **.png 파일은 학습할 이미지 데이터**이며, **.csv 파일에는 이미지에 존재하는 객체에 대한 정보**( class, x, y, width, height )가 저장되어 있습니다. 
 
-> **.csv 파일의 생성에 대한 설명은 Step 2. 데이터 라벨링 목록에서 이어서 하게 됩니다.**
+> **객체 정보(.csv 파일) 생성에 대한 설명은 Step 2. 데이터 라벨링 목록에서 이어서 하게 됩니다.**
 
 ---
 ![file_list](./docs/img/file_list.png)
@@ -67,19 +67,19 @@
 
 ### Step 2. 데이터 라벨링<a name="Datalabelling"></a>
 
-다음으로 Object Detection 모델을 학습하기 위해서는 이미지 데이터에 존재하는 객체에 **Labelling**을 하는 과정이 필요합니다. 이와 관련한 많은 프로그램이 존재하지만 이 튜토리얼에선 github에 open source로 공개되어 있는 [LabelImg](https://github.com/tzutalin/labelImg)를 사용하길 추천합니다.
+학습할 이미지가 준비됐으면 Object Detection 모델을 학습하기 위해서 이미지에 존재하는 객체의 위치와 정보를 **Labelling**을 하는 과정이 필요합니다. 이와 관련한 많은 프로그램이 존재하지만 이 튜토리얼에선 github에 open source로 공개되어 있는 [LabelImg](https://github.com/tzutalin/labelImg)를 사용하길 추천합니다.
 
 본 튜토리얼에서 제공받았다고 가정한 객체 정보는 .csv 파일로 존재하지만, 위 프로그램을 사용하여 라벨링을 진행했을 경우 결과는 .xml 형식으로 얻게됩니다. 이는 [datitran](https://github.com/datitran/raccoon_dataset)의 github에 있는 xml_to_csv.py 소스를 사용해 간단하게 하나의 .csv 파일로 변경 가능합니다.
 
 만약 본 튜토리얼처럼 라벨링 결과가 class, x, y, width, height의 순서대로 정의된 .csv 파일로 얻게된다면 아래 **Step 3. csv 파일 통합** 코드를 이용해서 수 많은 .csv 파일을 하나로 통합할 수 있습니다.
 
-결과적으로 라벨링한 후 얻게되는 오브젝트의 정보를 갖고있는 output이 .csv 또는 .xml인 것은 중요하지 않고 이를 이용해 이미지와 객체 정보들을 하나의 TFRecord 파일로 변경하기 위해 정해진 포맷에 맞춰 하나의 .csv 파일로 통합하는 것이 중요합니다
+결과적으로 라벨링한 후 얻게되는 오브젝트의 정보를 갖고있는 output이 .csv 또는 .xml인 것은 중요하지 않고 이미지와 객체 정보들을 하나의 TFRecord 파일로 변경하기 위해 정해진 포맷에 맞춰 하나의 .csv 파일로 통합하는 것이 중요합니다
 
 ### Step 3. csv 파일 통합<a name="Mergecsv"></a>
 
-xml_to_csv.py 소스를 사용해서 .xml 파일을 .csv파일로 만들었다면 약간의 소스 코드 수정을 통해 TFRecord 포맷에 맞는 하나의 통합된 .csv을 얻게 되었을 것 입니다. 그러나 본 튜토리얼 데이터셋처럼 각 이미지 파일마다 .csv 파일을 얻게 될 경우, TFRecord 파일을 생성하기 위해서 이를 하나의 통합된 .csv 파일로 만들어줘야 합니다.
+xml_to_csv.py 소스를 사용해서 .xml 파일을 .csv파일로 만들었다면 약간의 소스 코드 수정을 통해 TFRecord 포맷에 맞는 하나의 통합된 .csv을 얻게 됩니다. 그러나 본 튜토리얼 데이터셋처럼 각 이미지 파일마다 .csv 파일을 얻게 될 경우, TFRecord 파일을 생성하기 위해서 이를 하나의 통합된 .csv 파일로 만들어줘야 합니다.
 
-통합하는 과정에서 TFRecord 파일을 생성할 때 요구되는 포맷을 맞춰줘야 하는데, 이는 다음과 같습니다.
+통합된 .csv 파일은 TFRecord 파일을 생성할 때 이용되는데, TFRecord 파일은 Detection 모델 학습을 위해 사용하게 됩니다. 따라서 학습에 요구되는 포맷에 맞춰서 .csv 파일을 통합해줘야 하는데 포맷은 다음과 같습니다.
 >( filename, width, height, class, xmin, ymin, xmax, ymax ) 
 
 **여기서 width와 height는 image의 사이즈이고, Labelling을 통해 얻은 width와 height는 bounding box의 사이즈이므로 혼동하지 않아야 합니다.** 본 튜토리얼에서 제공하는 [소스코드](./docs/code/merge_csv.ipynb)를 통해 간단히 .csv 파일들을 포맷에 맞게 통합할 수 있습니다. 통합된 모습은 다음과 같습니다.
@@ -89,7 +89,7 @@ xml_to_csv.py 소스를 사용해서 .xml 파일을 .csv파일로 만들었다�
 
 ### Step 4. TFRecord 파일 생성<a name="Maketfrecord"></a>
 
-Object Detection 모델을 학습시킬 때 마다 이미지와 .csv 파일을 한 쌍으로 데이터를 보관하고 이용하는 것은 비효율적이고 관리하기에도 좋지 않습니다. Tensorflow Object Detection API는 이를 해결하기 위해 이미지와 .csv 파일은 **TFRecord**라는 하나의 파일로 만드는 방법을 사용했습니다.
+Object Detection 모델을 학습시킬 때마다 이미지와 .csv 파일을 한 쌍으로 데이터를 보관하고 이용하는 것은 비효율적이고 관리하기에도 좋지 않습니다. Tensorflow Object Detection API는 이를 해결하기 위해 이미지와 .csv 파일은 **TFRecord**라는 하나의 파일로 만드는 방법을 사용했습니다.
 
 object_detection/data 폴더에 통합된 train_labels.csv 을 넣어줍니다. 그 후 아래 명령어를 실행해서 TFRecord 파일을 생성합니다.
 > python3 generate_tfrecord.py --csv_input=data/train_labels.csv --output_path=data/train.record
@@ -118,7 +118,7 @@ TFRecord에 대한 더 자세한 설명은 [여기](http://bcho.tistory.com/1190
 
 우리는 좀 더 빠르고 정확한 모델을 학습시키기 위하여 SSD(Single Shot Detector)와 MobileNet_V2를 사용하겠습니다. 이를 위해서 [ssd_mobilenet_v2_coco.config](https://github.com/tensorflow/models/blob/master/research/object_detection/samples/configs/ssd_mobilenet_v2_coco.config) 파일을 복사하여 training 폴더에 넣어주도록 합시다.
 
-이 때, 모델을 처음부터 학습시키기 위해서는 매우 많은 시간이 필요하게 되므로 COCO dataset으로 미리 학습된 모델(Pretrained Model)을 사용해 우리 모델을 Transfer learning을 시키도록 합시다. 또한 우리가 data 폴더에 생성한 train.record와 object-detection.pbtxt을 사용하여 모델을 학습시키기 위해 .config 파일을 아래와 같이 수정합니다. .config 파일에 대한 자세한 내용은 Extras를 참고하세요.
+이 때, 모델을 처음부터 학습시키기 위해서는 매우 많은 시간이 필요하게 되므로 COCO dataset으로 미리 학습된 모델(Pretrained Model)을 사용해 우리 모델을 Transfer learning을 시키도록 합시다. 또한 우리가 data 폴더에 생성한 train.record와 object-detection.pbtxt을 사용하여 모델을 학습시키기 위해 .config 파일을 아래와 같이 수정합니다. .config 파일에 대한 자세한 은 Extras를 참고하세요.
 
 ---
 >9 ~~num_classes: 90~~
@@ -189,5 +189,5 @@ model.ckpt-xxxxx의 xxxxx부분에 저장된 모델 번호를 쓰고 명령어�
 ![result](./docs/img/result.png)
 ![result](./docs/img/result2.png)
 
-결과를 보면 학습이 잘 되어 카드 번호 검출이 잘 이루어지는 것을 알 수 있다. 
+결과를 보면 학습이 잘 되어 카드 번호 검출이 잘 이루어지는 것을 알 수 있습니다. 
 ## 6. Extras<a name="Extras"></a>
