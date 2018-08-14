@@ -24,8 +24,8 @@
 >* Step 3. [csv 파일 통합](#Mergecsv)
 >* Step 4. [TF Record 파일 생성](#Maketfrecord)
 >* Step 5. [object-detection.pbtxt 파일 생성](#Makepbtxt)
-3. [학습(\Training)](#Train)
-4. [모델(Running)](#Running)
+3. [학습(Training)](#Train)
+4. [모델테스트(Running)](#Running)
 5. [결과(Result)](#Result)
 6. [Extras](#Extras)
 
