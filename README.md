@@ -50,18 +50,19 @@
 
 > **.csv 파일의 생성에 대한 설명은 Step 2. 데이터 라벨링 목록에서 이어서 하게 됩니다.**
 
+---
 ![file_list](./docs/img/file_list.png)
 
 * 학습에 사용할 데이터셋 리스트
-
+---
 ![card_img](./docs/img/card_img.png)
 
 * 학습에 사용할 카드 이미지
-
+---
 ![csv_format](./docs/img/csv_format.png)
 
 * 학습에 사용할 데이터셋의 csv 포맷( 왼쪽부터 객체의 **class(숫자), x, y, width, height** )
-
+---
 
 
 ### Step 2. 데이터 라벨링<a name="Datalabelling"></a>
@@ -116,7 +117,7 @@ TFRecord에 대한 더 자세한 설명은 [여기](http://bcho.tistory.com/1190
 우리는 좀 더 빠르고 정확한 모델을 학습시키기 위하여 SSD(Single Shot Detector)와 MobileNet_V2를 사용하겠습니다. 이를 위해서 [ssd_mobilenet_v2_coco.config](https://github.com/tensorflow/models/blob/master/research/object_detection/samples/configs/ssd_mobilenet_v2_coco.config) 파일을 복사하여 training 폴더에 넣어주도록 합시다.
 
 이 때, 모델을 처음부터 학습시키기 위해서는 매우 많은 시간이 필요하게 되므로 COCO dataset으로 미리 학습된 모델(Pretrained Model)을 사용해 우리 모델을 Transfer learning을 시키도록 합시다. 또한 우리가 data 폴더에 생성한 train.record와 object-detection.pbtxt을 사용하여 모델을 학습시키기 위해 .config 파일을 아래와 같이 수정합니다. .config 파일에 대한 자세한 내용은 Extras를 참고하세요.
-
+---
 >9 ~~num_classes: 90~~
 >>9 num_classes: 10
 
@@ -131,7 +132,7 @@ TFRecord에 대한 더 자세한 설명은 [여기](http://bcho.tistory.com/1190
 
 >177 ~~label_map_path: "PATH_TO_BE_CONFIGURED/mscoco_label_map.pbtxt"~~
 >>177 label_map_path: "data/object-detection.pbtxt"
-
+---
 
 Pretrained 모델 다운로드와 각 모델간의 속도 비교는 [여기](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md)에서 할 수 있습니다. 
 
@@ -165,21 +166,21 @@ Tensorflow Object Detection API에서 제공하는 .config 파일을 사용해 �
 model.ckpt-xxxxx의 xxxxx부분에 저장된 모델 번호를 쓰고 명령어를 실행하면 num_recognition 폴더가 생성되고 폴더안에 frozen_inference_graph.pb(추론 그래프)가 생성된 것을 알 수 있습니다.
 
 추론 그래프 추출이 완료되었으면 학습된 모델을 사용하여 객체를 추출하기 위해 object_detection/object_detection_tutorial.ipynb을 다음과 같이 수정합니다. 
-
+---
 ![model_name](./docs/img/model_name.png)
-
+---
 추론 모델 추출 결과 num_recognition 파일이 생성되었기 때문에 model_name을 num_recognition으로 변경하고 PAATH_TO_CKPT도 바뀐 모델 경로로 변경합니다. PATH_TO_LABELS는 레이블에 사용되는 문자용 목록으로, 앞서 정의한 object_detection.pbtxt로 변경합니다. 마지막으로 여기서 정의한 클래스는 10개(0 ~ 9)이므로 NUM_CLASSES의 값을 수정합니다.  
-
+---
 ![test_images](./docs/img/test_images.png)
-
+---
 테스트를 하기 위해 테스트할 이미지를 object_detection/test_images 폴더에 업로드합니다. 이미지들을 test_{} 형식에 맞춰 업로드하면 range의 범위에 따라 순서대로 이미지를 불러옵니다.
 
 업로드 후 object_detection_tutorial.ipynb를 실행하면 test_images 디렉토리의 이미지에 대해 num_recognition/frozen_inference_graph.pb을 사용하여 객체를 검출(추론)하고 그 결과를 출력합니다.
 
-
+---
 ![convert_rgb](./docs/img/convert_rgb.png)
-
-본 튜토리얼에서 사용한 카드가 있는 test_images의 이미지들은 Gray-scale인데 모델을 학습시키기 위해서는 RGB 이미지의 3개 채널로 넣어야 하기 때문에 RGB로 변환해 줍니다. 
+---
+본 튜토리얼에서 사용한 카드가 있는 test_images의 이미지들은 gray-scale로 1channel인 반면에 모델을 학습시키기 위해서는 3채널로 넣어야 하기 때문에 강제로 3채널의 RGB 이미지 파일로 변환해 줍니다. 
 
 
 
