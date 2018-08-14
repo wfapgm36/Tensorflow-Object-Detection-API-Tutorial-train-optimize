@@ -94,11 +94,12 @@ Object Detection 모델을 학습시킬 때 마다 이미지와 .csv 파일을 �
 object_detection/data 폴더에 통합된 train_labels.csv 을 넣어줍니다. 그 후 아래 명령어를 실행해서 TFRecord 파일을 생성합니다.
 > python3 generate_tfrecord.py --csv_input=data/train_labels.csv --output_path=data/train.record
 
-이 과정은 제공되는 [소스코드](./docs/code/generate_tfrecord.py)를 object_detection 폴더에 넣은 후 사용하면 됩니다. 단, 사용자의 데이터에 맞게 아래 부분에 대해 수정이 필요합니다. 
-
+이 과정은 제공되는 [소스코드](./docs/code/generate_tfrecord.py)를 object_detection 폴더에 넣은 후 사용하면 됩니다. 단, 아래와 같이 사용자 데이터에 적합하게 class와 path를 수정해야합니다. 
+---
 ![TFRecord_class](./docs/img/TFRecord_class.png)
-![TFRecord_path](./docs/img/TFRecord_path.png)
 
+![TFRecord_path](./docs/img/TFRecord_path.png)
+---
 data 폴더에 생성된 tfrecord 파일은 다음과 같습니다.
 
 ![tfrecord](./docs/img/tfrecord.png)
