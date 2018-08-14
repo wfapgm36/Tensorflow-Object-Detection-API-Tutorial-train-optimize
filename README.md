@@ -135,12 +135,7 @@ TFRecord에 대한 더 자세한 설명은 [여기](http://bcho.tistory.com/1190
 >>177 label_map_path: "data/object-detection.pbtxt"
 ---
 
-Pretrained 모델 다운로드와 각 모델간의 속도 비교는 [여기](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md)에서 할 수 있습니다. 
-
-ssd_mobilenet_v2_coco 모델을 다운로드 받아 object_detection 폴더에 넣도록 합시다.
-
-
-object_detection 디렉토리에서 아래와 같은 명령을 실행하여 학습합니다.
+Pretrained 모델 다운로드와 각 모델간의 속도 비교는 [여기](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md)에서 할 수 있습니다. ssd_mobilenet_v2_coco 모델을 다운로드 받아 object_detection 폴더에 넣도록 합시다. 그 후 object_detection 디렉토리에서 아래와 같은 명령을 실행하여 학습을 시작합니다.
 > python3 train.py --logtostderr --train_dir=training/ --pipeline_config_path=training/ssd_mobilenet_v2_coco.config
 
 학습이 정상적으로 시작되면 아래와 같이 동작합니다.
