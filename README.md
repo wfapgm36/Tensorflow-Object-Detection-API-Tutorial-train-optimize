@@ -95,6 +95,7 @@ object_detection/data 폴더에 통합된 train_labels.csv 을 넣어줍니다. 
 > python3 generate_tfrecord.py --csv_input=data/train_labels.csv --output_path=data/train.record
 
 이 과정은 제공되는 [소스코드](./docs/code/generate_tfrecord.py)를 object_detection 폴더에 넣은 후 사용하면 됩니다. 단, 아래와 같이 사용자 데이터에 적합하게 class와 path를 수정해야합니다. 
+
 ---
 ![TFRecord_class](./docs/img/TFRecord_class.png)
 
@@ -118,6 +119,7 @@ TFRecord에 대한 더 자세한 설명은 [여기](http://bcho.tistory.com/1190
 우리는 좀 더 빠르고 정확한 모델을 학습시키기 위하여 SSD(Single Shot Detector)와 MobileNet_V2를 사용하겠습니다. 이를 위해서 [ssd_mobilenet_v2_coco.config](https://github.com/tensorflow/models/blob/master/research/object_detection/samples/configs/ssd_mobilenet_v2_coco.config) 파일을 복사하여 training 폴더에 넣어주도록 합시다.
 
 이 때, 모델을 처음부터 학습시키기 위해서는 매우 많은 시간이 필요하게 되므로 COCO dataset으로 미리 학습된 모델(Pretrained Model)을 사용해 우리 모델을 Transfer learning을 시키도록 합시다. 또한 우리가 data 폴더에 생성한 train.record와 object-detection.pbtxt을 사용하여 모델을 학습시키기 위해 .config 파일을 아래와 같이 수정합니다. .config 파일에 대한 자세한 내용은 Extras를 참고하세요.
+
 ---
 >9 ~~num_classes: 90~~
 >>9 num_classes: 10
@@ -162,10 +164,13 @@ Tensorflow Object Detection API에서 제공하는 .config 파일을 사용해 �
 model.ckpt-xxxxx의 xxxxx부분에 저장된 모델 번호를 쓰고 명령어를 실행하면 num_recognition 폴더가 생성되고 폴더안에 frozen_inference_graph.pb(추론 그래프)가 생성된 것을 알 수 있습니다.
 
 추론 그래프 추출이 완료되었으면 학습된 모델을 사용하여 객체를 추출하기 위해 object_detection/object_detection_tutorial.ipynb을 다음과 같이 수정합니다. 
+
 ---
 ![model_name](./docs/img/model_name.png)
+
 ---
-추론 모델 추출 결과 num_recognition 파일이 생성되었기 때문에 model_name을 num_recognition으로 변경하고 PAATH_TO_CKPT도 바뀐 모델 경로로 변경합니다. PATH_TO_LABELS는 레이블에 사용되는 문자용 목록으로, 앞서 정의한 object_detection.pbtxt로 변경합니다. 마지막으로 여기서 정의한 클래스는 10개(0 ~ 9)이므로 NUM_CLASSES의 값을 수정합니다.  
+추론 모델 추출 결과 num_recognition 파일이 생성되었기 때문에 model_name을 num_recognition으로 변경하고 PAATH_TO_CKPT도 바뀐 모델 경로로 변경합니다. PATH_TO_LABELS는 레이블에 사용되는 문자용 목록으로, 앞서 정의한 object_detection.pbtxt로 변경합니다. 마지막으로 여기서 정의한 클래스는 10개(0 ~ 9)이므로 NUM_CLASSES의 값을 수정합니다. 
+
 ---
 ![test_images](./docs/img/test_images.png)
 ---
