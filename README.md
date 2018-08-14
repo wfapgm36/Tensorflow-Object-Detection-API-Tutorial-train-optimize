@@ -81,12 +81,12 @@ xml_to_csv.py 소스를 사용해서 .xml 파일을 .csv파일로 만들었다�
 통합하는 과정에서 TFRecord 파일을 생성할 때 요구되는 포맷을 맞춰줘야 하는데, 이는 다음과 같습니다.
 >( filename, width, height, class, xmin, ymin, xmax, ymax ) 
 
-**여기서 width와 height는 __image의 사이즈__ 이고, Labelling을 통해 얻은 width와 height는 __bounding box__ 의 사이즈이므로 혼동하지 않아야 합니다.** 본 튜토리얼에서 제공하는 [소스코드](./docs/code/merge_csv.ipynb)를 통해 간단히 .csv 파일들을 포맷에 맞게 통합할 수 있습니다. 통합된 모습은 다음과 같습니다.
+**여기서 width와 height는 image의 사이즈이고, Labelling을 통해 얻은 width와 height는 bounding box의 사이즈이므로 혼동하지 않아야 합니다.** 본 튜토리얼에서 제공하는 [소스코드](./docs/code/merge_csv.ipynb)를 통해 간단히 .csv 파일들을 포맷에 맞게 통합할 수 있습니다. 통합된 모습은 다음과 같습니다.
 
 ![merged_csv](./docs/img/merged_csv.png)
 
 
-### Step 4. TF Record 파일 생성<a name="Maketfrecord"></a>
+### Step 4. TFRecord 파일 생성<a name="Maketfrecord"></a>
 
 Object Detection 모델을 학습시킬 때 마다 이미지와 .csv 파일을 한 쌍으로 데이터를 보관하고 이용하는 것은 비효율적이고 관리하기에도 좋지 않습니다. Tensorflow Object Detection API는 이를 해결하기 위해 이미지와 .csv 파일은 **TFRecord**라는 하나의 파일로 만드는 방법을 사용했습니다.
 
@@ -106,16 +106,16 @@ TFRecord에 대한 더 자세한 설명은 [여기](http://bcho.tistory.com/1190
 
 ### Step 5. object-detection.pbtxt 파일 생성<a name="Makepbtxt"></a>
 
-본 튜토리얼에서는 카드 숫자 검출을 위해 0 ~ 9의 10가지 숫자를 검출해야할 class로 지정했습니다. TFRecord 파일은 .pb 포으로 학습 시 데이터를 읽어 오는데, 여기서 label 정보 또한 .pbtxt형식으로 읽게 됩니다. 따라서 앞서 생성한 object_detection/training 폴더에 [이것](./docs/code/object-detection.pbtxt)과 같은 object-detection.pbtxt 파일을 만들어줘야 합니다. 모델 테스트를 위하여 같은 파일을 object_detection/data 폴더에도 복사하여 넣어줍니다. 총 2개의 같은 .pbtxt 파일이 생성되었습니다.
+본 튜토리얼에서는 카드 숫자 검출을 위해 0 ~ 9의 10가지 숫자를 검출해야할 class로 지정했습니다. TFRecord 파일은 .pb 포으로 학습 시 데이터를 읽어 오는데, 여기서 객체 정보에 대한 label도 .pbtxt형식으로 읽게 됩니다. 따라서 앞서 생성한 object_detection/training 폴더에 [이것](./docs/code/object-detection.pbtxt)과 같은 object-detection.pbtxt 파일을 만들어줘야 합니다. 모델 테스트를 위하여 같은 파일을 object_detection/data 폴더에도 복사하여 넣어줍니다. 총 2개의 같은 .pbtxt 파일이 생성되었습니다.
 
 
 ## 학습<a name="Train"></a>
 
-앞의 과정을 통해서 학습에 필요한 데이터를 수집하고, 라벨링하고, TFRecord로 변환하는 과정까지 모두 완료했습니다. 데이터가 모두 준비가 되었으니 이제 모델을 학습시킬 차례입니다. 학습에 앞서 Tensorflow Object Detection API는 사용자가 간단히 학습 환경을 변경할 수 있도록 object_detection/samples/configs에 .config 파일을 여러 개 준비해두었습니다. 우리는 좀 더 빠르고 정확한 모델을 학습시키기 위하여 [**ssd_mobilenet_v2_coco.config**](https://github.com/tensorflow/models/blob/master/research/object_detection/samples/configs/ssd_mobilenet_v2_coco.config) 파일을 복사하여 training 폴더에 넣어주고 아래 명령어를 통해 학습을 진행하도록 하겠습니다.
+앞의 과정을 통해서 학습에 필요한 데이터를 수집하고, 라벨링하고, TFRecord로 변환하는 과정을 통해 모델을 학습할 준비가 되었습니다. 학습에 앞서 Tensorflow Object Detection API는 사용자가 간단히 학습 환경을 변경할 수 있도록 object_detection/samples/configs에 .config 파일을 여러 개 준비해두었습니다. 우리는 좀 더 빠르고 정확한 모델을 학습시키기 위하여 SSD(Single Shot Detector)와 MobileNet_V2를 사용하겠습니다.  [ssd_mobilenet_v2_coco.config](https://github.com/tensorflow/models/blob/master/research/object_detection/samples/configs/ssd_mobilenet_v2_coco.config) 파일을 복사하여 training 폴더에 넣어주고 아래 명령어를 통해 모델을 학습시키도록 합시다.
 
-Pretrained 모델 다운로드와 각 모델간의 속도 비교는 [여기](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md)에서 확인할 수 있습니다. 
+이 때, 모델을 처음부터 학습시키기 위해서는 매우 많은 시간이 필요하게 되므로 COCO dataset으로 미리 학습된 모델(Pretrained Model)을 사용해 우리 모델을 Transfer learning을 시키도록 합시다. 
 
-Tensorflow Object Detection API에서 제공하는 .config 파일을 사용해 본 후 카드 번호 검출에 최적화한 .config 파일을 사용해 모델을 학습시켜보고 결과를 비교해보고 싶다면 [이것](./docs/code/ssd_mobilenet_v2_coco.config)을 사용해 보시길 바랍니다. 
+Pretrained 모델 다운로드와 각 모델간의 속도 비교는 [여기](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md)에서 할 수 있습니다. 
 
 object_detection 디렉토리에서 아래와 같은 명령을 실행하여 학습합니다.
 > python3 train.py --logtostderr --train_dir=training/ --pipeline_config_path=training/ssd_mobilenet_v2_coco.config
@@ -125,6 +125,8 @@ object_detection 디렉토리에서 아래와 같은 명령을 실행하여 학�
 ![train](./docs/img/loss.png)
 
 각 step마다 loss 값이 출력되고 잘 학습되는 경우 loss는 0에 수렴합니다. 적당히 loss가 0 ~ 2 정도로 수렴한다 싶으면 학습을 종료하고 모델을 테스트해봅니다.
+
+Tensorflow Object Detection API에서 제공하는 .config 파일을 사용해 본 후 카드 번호 검출에 최적화한 .config 파일을 사용해 모델을 학습시켜보고 결과를 비교해보고 싶다면 [이것](./docs/code/ssd_mobilenet_v2_coco.config)을 사용해 보시길 바랍니다. 
 
 ## 모델 테스트<a name="Running"></a>
 
