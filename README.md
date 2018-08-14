@@ -98,7 +98,7 @@ object_detection/data 폴더에 통합된 train_labels.csv 을 넣어줍니다. 
 ![TFRecord_class](./docs/img/TFRecord_class.png)
 ![TFRecord_path](./docs/img/TFRecord_path.png)
 
-생성된 tfrecord 파일은 다음과 같습니다.
+data 폴더에 생성된 tfrecord 파일은 다음과 같습니다.
 
 ![tfrecord](./docs/img/tfrecord.png)
 
@@ -120,16 +120,22 @@ TFRecord에 대한 더 자세한 설명은 [여기](http://bcho.tistory.com/1190
 >9 ~~num_classes: 90~~
 >>9 num_classes: 10
 
+
 >156 ~~fine_tune_checkpoint: "PATH_TO_BE_CONFIGURED/model.ckpt"~~
 >>156 fine_tune_checkpoint: "ssd_mobilenet_v2_coco_2018_03_29/model.ckpt"
+
 
 >175 ~~input_path: "PATH_TO_BE_CONFIGURED/mscoco_train.record-?????-of-00100"~~
 >>175  input_path: "data/train.record"
 
+
 >177 ~~label_map_path: "PATH_TO_BE_CONFIGURED/mscoco_label_map.pbtxt"~~
 >>177 label_map_path: "data/object-detection.pbtxt"
 
+
 Pretrained 모델 다운로드와 각 모델간의 속도 비교는 [여기](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md)에서 할 수 있습니다. 
+
+ssd_mobilenet_v2_coco 모델을 다운로드 받아 object_detection 폴더에 넣도록 합시다.
 
 
 object_detection 디렉토리에서 아래와 같은 명령을 실행하여 학습합니다.
