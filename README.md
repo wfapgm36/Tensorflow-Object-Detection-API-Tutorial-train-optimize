@@ -123,7 +123,11 @@ TFRecord에 대한 더 자세한 설명은 [여기](http://bcho.tistory.com/1190
 >156 ~~fine_tune_checkpoint: "PATH_TO_BE_CONFIGURED/model.ckpt"~~
 >>156 fine_tune_checkpoint: "ssd_mobilenet_v2_coco_2018_03_29/model.ckpt"
 
->173 train_input_reader: {</br>174   tf_record_input_reader {</br>175     input_path: "PATH_TO_BE_CONFIGURED/mscoco_train.record-?????-of-00100"</br>176   }</br>177   label_map_path: "PATH_TO_BE_CONFIGURED/mscoco_label_map.pbtxt"</br>178 }
+>175 ~~input_path: "PATH_TO_BE_CONFIGURED/mscoco_train.record-?????-of-00100"~~
+>>175  input_path: "data/train.record"
+
+>177 ~~label_map_path: "PATH_TO_BE_CONFIGURED/mscoco_label_map.pbtxt"~~
+>>177 label_map_path: "data/object-detection.pbtxt"
 
 Pretrained 모델 다운로드와 각 모델간의 속도 비교는 [여기](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md)에서 할 수 있습니다. 
 
