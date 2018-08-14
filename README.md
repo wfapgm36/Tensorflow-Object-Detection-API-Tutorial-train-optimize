@@ -29,7 +29,7 @@
 5. [결과(Result)](#Result)
 6. [Extras](#Extras)
 
-## 설치<a name="Install"></a>
+## 1. 설치<a name="Install"></a>
 
 [Tensorflow Object Dectection API](https://github.com/tensorflow/models/tree/master/research/object_detection)을 적당한 폴더에 git clone하고 [여기](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/installation.md)를 참고하여 설치를 완료합니다. ( COCO API installation은 하지 않아도 튜토리얼을 진행하는데 문제는 없습니다. )
 
@@ -40,7 +40,7 @@
 
 ![directory](./docs/img/directory.png)
 
-## 데이터셋 구성<a name="Dataset"></a>
+## 2. 데이터셋 구성<a name="Dataset"></a>
 
 ### Step 1. 학습 데이터 준비<a name="Preparedata"></a>
 
@@ -109,13 +109,13 @@ TFRecord에 대한 더 자세한 설명은 [여기](http://bcho.tistory.com/1190
 본 튜토리얼에서는 카드 숫자 검출을 위해 0 ~ 9의 10가지 숫자를 검출해야할 class로 지정했습니다. TFRecord 파일은 .pb 포으로 학습 시 데이터를 읽어 오는데, 여기서 객체 정보에 대한 label도 .pbtxt형식으로 읽게 됩니다. 따라서 앞서 생성한 object_detection/training 폴더에 [이것](./docs/code/object-detection.pbtxt)과 같은 object-detection.pbtxt 파일을 만들어줘야 합니다. 모델 테스트를 위하여 같은 파일을 object_detection/data 폴더에도 복사하여 넣어줍니다. 총 2개의 같은 .pbtxt 파일이 생성되었습니다.
 
 
-## 학습<a name="Train"></a>
+## 3. 학습<a name="Train"></a>
 
 앞의 과정을 통해서 학습에 필요한 데이터를 수집하고, 라벨링하고, TFRecord로 변환하는 과정을 통해 모델을 학습할 준비가 되었습니다. 학습에 앞서 Tensorflow Object Detection API는 사용자가 간단히 학습 환경을 변경할 수 있도록 object_detection/samples/configs에 .config 파일을 여러 개 준비해두었습니다. 
 
 우리는 좀 더 빠르고 정확한 모델을 학습시키기 위하여 SSD(Single Shot Detector)와 MobileNet_V2를 사용하겠습니다. 이를 위해서 [ssd_mobilenet_v2_coco.config](https://github.com/tensorflow/models/blob/master/research/object_detection/samples/configs/ssd_mobilenet_v2_coco.config) 파일을 복사하여 training 폴더에 넣어주도록 합시다.
 
-이 때, 모델을 처음부터 학습시키기 위해서는 매우 많은 시간이 필요하게 되므로 COCO dataset으로 미리 학습된 모델(Pretrained Model)을 사용해 우리 모델을 Transfer learning을 시키도록 합시다. 또한 우리가 data 폴더에 생성한 train.record와 object-detection.pbtxt을 사용하여 모델을 학습시키기 위해 .config 파일을 아래와 같이 수정합니다.
+이 때, 모델을 처음부터 학습시키기 위해서는 매우 많은 시간이 필요하게 되므로 COCO dataset으로 미리 학습된 모델(Pretrained Model)을 사용해 우리 모델을 Transfer learning을 시키도록 합시다. 또한 우리가 data 폴더에 생성한 train.record와 object-detection.pbtxt을 사용하여 모델을 학습시키기 위해 .config 파일을 아래와 같이 수정합니다. .config 파일에 대한 자세한 내용은 Extras를 참고하세요.
 
 >9 ~~num_classes: 90~~
 >>9 num_classes: 10
@@ -149,7 +149,7 @@ object_detection 디렉토리에서 아래와 같은 명령을 실행하여 학�
 
 Tensorflow Object Detection API에서 제공하는 .config 파일을 사용해 본 후 카드 번호 검출에 최적화한 .config 파일을 사용해 모델을 학습시켜보고 결과를 비교해보고 싶다면 [이것](./docs/code/ssd_mobilenet_v2_coco.config)을 사용해 보시길 바랍니다. 
 
-## 모델 테스트<a name="Running"></a>
+## 4. 모델 테스트<a name="Running"></a>
 
 모델 테스트를 위하여 다음과 같은 과정이 필요합니다.
 1. 추론 그래프 추출
@@ -183,9 +183,9 @@ model.ckpt-xxxxx의 xxxxx부분에 저장된 모델 번호를 쓰고 명령어�
 
 
 
-## 결과<a name="Result"></a>
+## 5. 결과<a name="Result"></a>
 ![result](./docs/img/result.png)
 ![result](./docs/img/result2.png)
 
 결과를 보면 학습이 잘 되어 카드 번호 검출이 잘 이루어지는 것을 알 수 있다. 
-## Extras<a name="Extras"></a>
+## 6. Extras<a name="Extras"></a>
