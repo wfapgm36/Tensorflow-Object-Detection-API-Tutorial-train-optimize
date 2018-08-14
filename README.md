@@ -68,15 +68,20 @@
 
 다음으로 Object Detection 모델을 학습하기 위해서는 이미지 데이터에 존재하는 객체에 **Labelling**을 하는 과정이 필요합니다. 이와 관련한 많은 프로그램이 존재하지만 이 튜토리얼에선 github에 open source로 공개되어 있는 [LabelImg](https://github.com/tzutalin/labelImg)를 사용하길 추천합니다.
 
-본 튜토리얼에서 제공받았다고 가정한 객체 정보는 .csv 파일로 존재하지만, 위 프로그램을 사용하여 라벨링을 진행했을 경우 결과는 XML 형식으로 얻게됩니다. 이는 [datitran](https://github.com/datitran/raccoon_dataset)의 github에 있는 xml_to_csv.py 소스를 사용해 간단하게 하나의 .csv 파일로 변경 가능합니다.
+본 튜토리얼에서 제공받았다고 가정한 객체 정보는 .csv 파일로 존재하지만, 위 프로그램을 사용하여 라벨링을 진행했을 경우 결과는 .xml 형식으로 얻게됩니다. 이는 [datitran](https://github.com/datitran/raccoon_dataset)의 github에 있는 xml_to_csv.py 소스를 사용해 간단하게 하나의 .csv 파일로 변경 가능합니다.
 
-만약 본 튜토리얼처럼 라벨링 결과가 class, x, y, width, height의 순서대로 .csv 파일로 얻게된다면 아래 **Step 3. csv 파일 통합** 코드를 통해서 csv 파일을 Merge할 수 있습니다.
+만약 본 튜토리얼처럼 라벨링 결과가 class, x, y, width, height의 순서대로 정의된 .csv 파일로 얻게된다면 아래 **Step 3. csv 파일 통합** 코드를 이용해서 수 많은 .csv 파일을 하나로 통합할 수 있습니다.
+
+결과적으로 라벨링한 후 얻게되는 오브젝트의 정보를 갖고있는 output이 .csv 또는 .xml인 것은 중요하지 않고 이를 이용해 이미지와 객체 정보들을 하나의 TFRecord 파일로 변경하기 위해 정해진 포맷에 맞춰 하나의 .csv 파일로 통합하는 것이 중요합니다
 
 ### Step 3. csv 파일 통합<a name="Mergecsv"></a>
 
-xml_to_csv.py 소스를 사용해서 XML 파일을 csv파일로 만들었다면 약간의 소스 코드 수정을 통해 TFRecord 포맷에 맞는 하나의 통합된 csv을 얻게 되었을 것 입니다. 그러나 본 튜토리얼 데이터셋처럼 각 이미지 파일마다 csv 파일을 얻게 될 경우, TFRecord 파일을 생성하기 위해서 이를 하나의 통합된 csv 파일로 만들어줘야 합니다.
+xml_to_csv.py 소스를 사용해서 .xml 파일을 .csv파일로 만들었다면 약간의 소스 코드 수정을 통해 TFRecord 포맷에 맞는 하나의 통합된 .csv을 얻게 되었을 것 입니다. 그러나 본 튜토리얼 데이터셋처럼 각 이미지 파일마다 .csv 파일을 얻게 될 경우, TFRecord 파일을 생성하기 위해서 이를 하나의 통합된 .csv 파일로 만들어줘야 합니다.
 
-통합하는 과정에서 TFRecord 파일을 생성할 때 요구되는 포을 맞춰줘야 하는데, 이는 ( filename, width, height, class, xmin, ymin, xmax, ymax )입니다. 여기서 width와 height는 image의 사이즈이고, Labelling을 통해 얻은 width와 height는 bounding box의 사이즈이므로 혼동하지 않아야 합니다.  본 튜토리얼에서 제공하는 [소스코드](./docs/code/merge_csv.ipynb)를 통해 간단히 .csv 파일들을 포맷에 맞게 통합할 수 있습니다. 통합된 모습은 다음과 같습니다.
+통합하는 과정에서 TFRecord 파일을 생성할 때 요구되는 포맷을 맞춰줘야 하는데, 이는 다음과 같습니다.
+>( filename, width, height, class, xmin, ymin, xmax, ymax ) 
+
+**여기서 width와 height는 image의 사이즈이고, Labelling을 통해 얻은 width와 height는 bounding box의 사이즈이므로 혼동하지 않아야 합니다.** 본 튜토리얼에서 제공하는 [소스코드](./docs/code/merge_csv.ipynb)를 통해 간단히 .csv 파일들을 포맷에 맞게 통합할 수 있습니다. 통합된 모습은 다음과 같습니다.
 
 ![merged_csv](./docs/img/merged_csv.png)
 
