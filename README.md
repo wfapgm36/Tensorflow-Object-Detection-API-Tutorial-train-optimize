@@ -44,7 +44,7 @@
 
 ### Step 1. 학습 데이터 준비<a name="Preparedata"></a>
 
-학습에 필요한 이미지 데이터를 준비합니다. object_detection/training 폴더를 만들어 학습하고자 하는 이미지를 Google 검색을 통해 다운로드하거나, 가지고 있는 이미지 파일을 위 경로로 저장해 줍니다. 또한 [여기](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/using_your_own_dataset.md)에서 알 수 있듯이 학습 시 사용할 이미지 데이터는 **RGB image로 jpeg나 png 포맷**이어야 합니다.
+학습에 필요한 이미지 데이터를 준비합니다. object_detection/images 폴더를 만들어 학습하고자 하는 이미지를 Google 검색을 통해 다운로드하거나, 가지고 있는 이미지 파일을 위 경로로 저장해 줍니다. 또한 [여기](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/using_your_own_dataset.md)에서 알 수 있듯이 학습 시 사용할 이미지 데이터는 **RGB image로 jpeg나 png 포맷**이어야 합니다.
 
 본 튜토리얼에서 사용할 데이터셋은 **.png 파일과 .csv 파일이 한 쌍 씩** 이루고 있는데, 여기서 **.png 파일은 학습할 이미지 데이터**이며, **.csv 파일에는 이미지에 존재하는 객체에 대한 정보**( class, x, y, width, height )가 저장되어 있습니다. 
 
@@ -94,7 +94,7 @@ Object Detection 모델을 학습시킬 때마다 이미지와 .csv 파일을 �
 object_detection/data 폴더에 통합된 train_labels.csv 을 넣어줍니다. 그 후 아래 명령어를 실행해서 TFRecord 파일을 생성합니다.
 > python3 generate_tfrecord.py --csv_input=data/train_labels.csv --output_path=data/train.record
 
-이 과정은 제공되는 [소스코드](./docs/code/generate_tfrecord.py)를 object_detection 폴더에 넣은 후 사용하면 됩니다. 단, 아래와 같이 사용자 데이터에 적합하게 class와 path를 수정해야합니다. 
+이 과정은 제공되는 [소스코드](./docs/code/generate_tfrecord.py)를 object_detection 폴더에 넣은 후 사용하면 됩니다. 단, 아래와 같이 사용자 데이터에 적절하게 class와 path를 수정해야합니다. 
 
 ---
 ![TFRecord_class](./docs/img/TFRecord_class.png)
@@ -109,7 +109,7 @@ TFRecord에 대한 더 자세한 설명은 [여기](http://bcho.tistory.com/1190
 
 ### Step 5. object-detection.pbtxt 파일 생성<a name="Makepbtxt"></a>
 
-본 튜토리얼에서는 카드 숫자 검출을 위해 0 ~ 9의 10가지 숫자를 검출해야할 class로 지정했습니다. TFRecord 파일은 .pb 포으로 학습 시 데이터를 읽어 오는데, 여기서 객체 정보에 대한 label도 .pbtxt형식으로 읽게 됩니다. 따라서 앞서 생성한 object_detection/training 폴더에 [이것](./docs/code/object-detection.pbtxt)과 같은 object-detection.pbtxt 파일을 만들어줘야 합니다. 모델 테스트를 위하여 같은 파일을 object_detection/data 폴더에도 복사하여 넣어줍니다. 총 2개의 같은 .pbtxt 파일이 생성되었습니다.
+본 튜토리얼에서는 카드 숫자 검출을 위해 0 ~ 9의 10가지 숫자를 검출해야할 class로 지정했습니다. TFRecord 파일은 .pb 포맷으로 학습 시 데이터를 읽어 오는데, 여기서 객체 정보에 대한 label도 .pbtxt형식으로 읽게 됩니다. object_detection/training 폴더를 생성해 [이것](./docs/code/object-detection.pbtxt)과 같은 object-detection.pbtxt 파일을 만들어줘야 합니다. 모델 테스트를 위하여 같은 파일을 object_detection/data 폴더에도 복사하여 넣어줍니다. 총 2개의 똑같은 .pbtxt 파일이 생성되었습니다.
 
 
 ## 3. 학습<a name="Train"></a>
@@ -118,7 +118,7 @@ TFRecord에 대한 더 자세한 설명은 [여기](http://bcho.tistory.com/1190
 
 우리는 좀 더 빠르고 정확한 모델을 학습시키기 위하여 SSD(Single Shot Detector)와 MobileNet_V2를 사용하겠습니다. 이를 위해서 [ssd_mobilenet_v2_coco.config](https://github.com/tensorflow/models/blob/master/research/object_detection/samples/configs/ssd_mobilenet_v2_coco.config) 파일을 복사하여 training 폴더에 넣어주도록 합시다.
 
-이 때, 모델을 처음부터 학습시키기 위해서는 매우 많은 시간이 필요하게 되므로 COCO dataset으로 미리 학습된 모델(Pretrained Model)을 사용해 우리 모델을 Transfer learning을 시키도록 합시다. 또한 우리가 data 폴더에 생성한 train.record와 object-detection.pbtxt을 사용하여 모델을 학습시키기 위해 .config 파일을 아래와 같이 수정합니다. .config 파일에 대한 자세한 은 Extras를 참고하세요.
+이 때, 모델을 처음부터 학습시키기 위해서는 매우 많은 시간이 필요하게 되므로 COCO dataset으로 미리 학습된 모델(Pretrained Model)을 사용해 우리 모델을 Transfer learning을 시키도록 합시다. 또한 우리가 data 폴더에 생성한 train.record와 object-detection.pbtxt을 사용하여 모델을 학습시키기 위해 .config 파일을 아래와 같이 수정합니다. .config 파일에 대한 자세한 설명은 Extras를 참고하세요.
 
 ---
 >9 ~~num_classes: 90~~
@@ -163,7 +163,7 @@ Tensorflow Object Detection API에서 제공하는 .config 파일을 사용해 �
   
 model.ckpt-xxxxx의 xxxxx부분에 저장된 모델 번호를 쓰고 명령어를 실행하면 num_recognition 폴더가 생성되고 폴더안에 frozen_inference_graph.pb(추론 그래프)가 생성된 것을 알 수 있습니다.
 
-추론 그래프 추출이 완료되었으면 학습된 모델을 사용하여 객체를 추출하기 위해 object_detection/object_detection_tutorial.ipynb을 다음과 같이 수정합니다. 
+추론 그래프 추출이 완료되었으면 학습된 모델을 사용하여 객체를 detection하기 위해 object_detection/object_detection_tutorial.ipynb을 다음과 같이 수정합니다. 
 
 ---
 ![model_name](./docs/img/model_name.png)
