@@ -191,3 +191,4 @@ model.ckpt-xxxxx의 xxxxx부분에 저장된 모델 번호를 쓰고 명령어�
 
 결과를 보면 학습이 잘 되어 카드 번호 검출이 잘 이루어지는 것을 알 수 있습니다. 
 ## 6. Extras<a name="Extras"></a>
+>* [Customizing model with config file]
